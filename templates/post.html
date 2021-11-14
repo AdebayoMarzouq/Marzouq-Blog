@@ -23,6 +23,7 @@
 </header>
 
 <!-- Post Content -->
+
 <article>
     <div class="container">
         <div class="row">
@@ -39,11 +40,11 @@
 
                 <!--           Comments Area -->
 
-                {{ ckeditor.load() }}
-                {{ ckeditor.config(name='comment_text') }}
+<!--                {{ ckeditor.load() }}-->
+<!--                {{ ckeditor.config(name='comment_text') }}-->
                 {{ wtf.quick_form(form, novalidate=True, button_map={"submit": "primary"}) }}
 
-
+                <hr>
                 <div class="col-lg-8 col-md-10 mx-auto comment">
                     {% for comment in post.comments: %}
                     <ul class="commentList">
@@ -51,15 +52,18 @@
                             <div class="commenterImage">
                                 <img src="{{ comment.comment_author.email | gravatar }}"/>
                             </div>
-                            <div class="commentText">
-                                {{comment.text|safe}}
+                            <div>
+                                <div class="commentText">
+                                    {{comment.text|safe}}
+                                </div>
                                 <span class="date sub-text">{{comment.comment_author.name}} {{comment.date}}</span>
-
                             </div>
+
                         </li>
                     </ul>
                     {% endfor %}
                 </div>
+                <hr>
 
 
             </div>
@@ -67,6 +71,6 @@
     </div>
 </article>
 
-<hr>
+<!--<hr>-->
 {% include "footer.html" %}
 {% endblock %}
