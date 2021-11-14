@@ -12,7 +12,6 @@ from flask_gravatar import Gravatar
 from dotenv import load_dotenv
 import os
 
-# 4AbaibGgjdf6kGfhFA8ogiaf84
 app = Flask(__name__)
 load_dotenv()
 KEY = os.getenv("SECRET_KEY", None)
