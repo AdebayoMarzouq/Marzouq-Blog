@@ -13,8 +13,8 @@ from dotenv import load_dotenv
 import os
 
 app = Flask(__name__)
-load_dotenv()
-KEY = os.getenv("SECRET_KEY", None)
+load_dotenv() # important to get environment variable from .env file using dotenv library
+KEY = os.getenv("SECRET_KEY")
 app.config['SECRET_KEY'] = KEY
 ckeditor = CKEditor(app)
 Bootstrap(app)
@@ -22,7 +22,8 @@ gravatar = Gravatar(app, size=100, rating='g', default='retro', force_default=Fa
                     base_url=None)
 
 ##CONNECT TO DB
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///blog.db'
+DB_KEY = os.getenv("DATABASE_URL", "sqlite:///blog.db")
+app.config['SQLALCHEMY_DATABASE_URI'] = DB_KEY
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 login_manager = LoginManager()
@@ -162,7 +163,7 @@ def show_post(post_id):
         )
         db.session.add(new_comment)
         db.session.commit()
-        return redirect(url_for("show_post"))
+        return redirect(url_for("show_post", post_id=post_id))
 
     return render_template("post.html", post=requested_post, form=form, current_user=current_user)
 
